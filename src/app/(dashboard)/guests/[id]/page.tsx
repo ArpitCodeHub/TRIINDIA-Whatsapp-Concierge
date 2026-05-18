@@ -42,15 +42,23 @@ export default async function GuestProfilePage({ params }: { params: Promise<{ i
   const escalations = (escalationsResult.data || []) as any[]
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-          {guest.name || 'Unknown Guest'}
-        </h1>
-        <p className="text-sm text-gray-500 dark:text-gray-400">{guest.phone}</p>
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex items-center gap-3">
+        <Link
+          href="/guests"
+          className="text-sm text-blue-600 hover:text-blue-800 font-medium flex-shrink-0"
+        >
+          ← Back
+        </Link>
+        <div className="min-w-0">
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white truncate">
+            {guest.name || 'Unknown Guest'}
+          </h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{guest.phone}</p>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <Card>
           <CardContent className="pt-6">
             <p className="text-sm text-gray-500 dark:text-gray-400">Total Stays</p>
@@ -202,15 +210,6 @@ export default async function GuestProfilePage({ params }: { params: Promise<{ i
           </CardContent>
         </Card>
       )}
-
-      <div className="flex gap-3">
-        <Link
-          href="/guests"
-          className="text-sm text-blue-600 hover:text-blue-800 font-medium"
-        >
-          ← Back to Guests
-        </Link>
-      </div>
     </div>
   )
 }

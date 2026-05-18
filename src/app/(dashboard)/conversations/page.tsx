@@ -50,38 +50,36 @@ export default async function ConversationsPage({
   })
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Conversations</h1>
-        <div className="flex items-center gap-3">
-          <form className="flex items-center gap-2">
-            <input
-              type="text"
-              name="search"
-              defaultValue={searchQuery}
-              placeholder="Search guests..."
-              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 w-48"
-            />
-            <select
-              name="status"
-              defaultValue={statusFilter || 'all'}
-              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="all">All</option>
-              <option value="active">Active</option>
-              <option value="escalated">Escalated</option>
-              <option value="resolved">Resolved</option>
-            </select>
-            <Button type="submit" variant="primary" size="sm">
-              Filter
-            </Button>
-          </form>
-        </div>
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Conversations</h1>
+        <form className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
+          <input
+            type="text"
+            name="search"
+            defaultValue={searchQuery}
+            placeholder="Search guests..."
+            className="flex-1 sm:w-40 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <select
+            name="status"
+            defaultValue={statusFilter || 'all'}
+            className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="all">All</option>
+            <option value="active">Active</option>
+            <option value="escalated">Escalated</option>
+            <option value="resolved">Resolved</option>
+          </select>
+          <Button type="submit" variant="primary" size="sm" className="sm:w-auto">
+            Filter
+          </Button>
+        </form>
       </div>
 
       <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
         {!filtered?.length ? (
-          <div className="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
+          <div className="px-4 sm:px-6 py-12 text-center text-gray-500 dark:text-gray-400 text-sm">
             No conversations found.
           </div>
         ) : (
@@ -93,11 +91,11 @@ export default async function ConversationsPage({
                 <Link
                   key={conv.id}
                   href={`/conversations/${conv.id}`}
-                  className="block px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                  className="block px-4 sm:px-6 py-3 sm:py-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
                 >
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-start justify-between gap-2">
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2">
+                      <div className="flex flex-wrap items-center gap-1.5">
                         <p className="text-sm font-semibold text-gray-900 dark:text-white">
                           {guest?.name || 'Unknown'}
                         </p>
@@ -108,7 +106,7 @@ export default async function ConversationsPage({
                           <Badge variant="info">Human</Badge>
                         )}
                         {lastMsg?.intent && (
-                          <Badge variant="default">
+                          <Badge variant="default" className="hidden sm:inline-flex">
                             {intentLabels[lastMsg.intent] || lastMsg.intent}
                           </Badge>
                         )}
@@ -116,10 +114,10 @@ export default async function ConversationsPage({
                       <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 truncate">
                         {lastMsg?.content || 'No messages'}
                       </p>
-                      <p className="text-xs text-gray-400 mt-1">{guest?.phone}</p>
+                      <p className="text-xs text-gray-400 mt-0.5">{guest?.phone}</p>
                     </div>
-                    <div className="text-right ml-4">
-                      <p className="text-xs text-gray-400">
+                    <div className="flex-shrink-0 text-right">
+                      <p className="text-xs text-gray-400 whitespace-nowrap">
                         {new Date(conv.last_message_at).toLocaleDateString(undefined, {
                           month: 'short',
                           day: 'numeric',

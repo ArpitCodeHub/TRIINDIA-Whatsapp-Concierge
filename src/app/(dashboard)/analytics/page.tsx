@@ -49,10 +49,10 @@ export default async function AnalyticsPage() {
   const maxIntentCount = sortedIntents.length > 0 ? sortedIntents[0][1] : 1
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Analytics</h1>
+    <div className="space-y-4 sm:space-y-6">
+      <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Analytics</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <StatCard
           title="Total Messages"
           value={totalMsg}
@@ -92,14 +92,14 @@ export default async function AnalyticsPage() {
             ) : (
               <div className="space-y-3">
                 {sortedIntents.map(([intent, count]) => (
-                  <div key={intent} className="flex items-center gap-3">
-                    <span className="text-sm text-gray-600 dark:text-gray-400 w-32 capitalize">
+                  <div key={intent} className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                    <span className="text-sm text-gray-600 dark:text-gray-400 sm:w-32 capitalize truncate">
                       {intent.replace('_', ' ')}
                     </span>
-                    <div className="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full h-6 overflow-hidden">
+                    <div className="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full h-5 sm:h-6 overflow-hidden">
                       <div
                         className="bg-blue-600 h-full rounded-full flex items-center justify-end pr-2 transition-all"
-                        style={{ width: `${(count / maxIntentCount) * 100}%` }}
+                        style={{ width: `${Math.max((count / maxIntentCount) * 100, 8)}%` }}
                       >
                         <span className="text-xs text-white font-medium">{count}</span>
                       </div>

@@ -90,20 +90,20 @@ export default function KnowledgeBasePage() {
   const filteredEntries = filter === 'all' ? entries : entries.filter((e) => e.category === filter)
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Knowledge Base</h1>
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Knowledge Base</h1>
         <Button onClick={() => { setEditingEntry(null); setFormData({ title: '', content: '', category: 'faq' }); setShowForm(true) }}>
           Add Entry
         </Button>
       </div>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-1.5 sm:gap-2">
         {categories.map((cat) => (
           <button
             key={cat.value}
             onClick={() => setFilter(cat.value)}
-            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+            className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
               filter === cat.value
                 ? 'bg-blue-600 text-white'
                 : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
@@ -114,9 +114,9 @@ export default function KnowledgeBasePage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
         {!filteredEntries.length ? (
-          <div className="col-span-2 text-center text-gray-500 dark:text-gray-400 py-12">
+          <div className="col-span-full text-center text-gray-500 dark:text-gray-400 py-12 text-sm">
             No entries found.
           </div>
         ) : (
@@ -124,8 +124,8 @@ export default function KnowledgeBasePage() {
             <Card key={entry.id}>
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-base">{entry.title}</CardTitle>
-                  <Badge variant={entry.is_active ? 'success' : 'default'}>
+                  <CardTitle className="text-sm sm:text-base truncate pr-2">{entry.title}</CardTitle>
+                  <Badge variant={entry.is_active ? 'success' : 'default'} className="text-xs flex-shrink-0">
                     {entry.is_active ? 'Active' : 'Inactive'}
                   </Badge>
                 </div>
@@ -134,16 +134,16 @@ export default function KnowledgeBasePage() {
                 <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-3 mb-3">
                   {entry.content}
                 </p>
-                <div className="flex items-center gap-2">
-                  <Badge variant="info">{entry.category}</Badge>
+                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                  <Badge variant="info" className="text-xs">{entry.category}</Badge>
                   <div className="flex-1" />
-                  <Button variant="ghost" size="sm" onClick={() => handleEdit(entry)}>
+                  <Button variant="ghost" size="sm" onClick={() => handleEdit(entry)} className="text-xs px-2">
                     Edit
                   </Button>
-                  <Button variant="ghost" size="sm" onClick={() => toggleActive(entry)}>
-                    {entry.is_active ? 'Deactivate' : 'Activate'}
+                  <Button variant="ghost" size="sm" onClick={() => toggleActive(entry)} className="text-xs px-2">
+                    {entry.is_active ? 'Off' : 'On'}
                   </Button>
-                  <Button variant="ghost" size="sm" onClick={() => handleDelete(entry)}>
+                  <Button variant="ghost" size="sm" onClick={() => handleDelete(entry)} className="text-xs px-2 text-red-600">
                     Delete
                   </Button>
                 </div>
